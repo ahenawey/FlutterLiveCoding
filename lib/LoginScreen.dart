@@ -1,5 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:liveDemo/Providers/Auth.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -31,6 +33,7 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<Auth>(context, listen: false);
     return Column(
       children: <Widget>[
         Form(
@@ -75,8 +78,7 @@ class LoginForm extends StatelessWidget {
           onPressed: () {
             if (_formKey.currentState.validate()) {
               _formKey.currentState.save();
-              print(_email);
-              print(_password);
+              auth.login(_email, _password);
             }
           },
         )
